@@ -1,7 +1,7 @@
 package logic
 
 import model.Staff
-import scalikejdbc.DBSession
+import scalikejdbc.{AutoSession, DBSession}
 
 /**
   * staffに関するLogic.

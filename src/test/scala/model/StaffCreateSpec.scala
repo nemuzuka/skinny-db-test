@@ -12,6 +12,9 @@ class StaffCreateSpec extends FunSpec with AutoRollback with Matchers with DBSet
 
   describe("create") {
     it("登録できることの確認") { implicit session =>
+
+      Staff.findAll().size should be (0)
+
       val entity = Staff(id = -1L, staffName = "ほげほげ")
       val actualId = Staff.create(entity)
       actualId should be > 0L

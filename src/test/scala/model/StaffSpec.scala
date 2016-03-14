@@ -1,7 +1,5 @@
 package model
 
-import java.util.Date
-
 import _root_.test.DBTestTrait
 import org.scalatest._
 import org.scalatest.fixture.FunSpec
