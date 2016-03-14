@@ -18,12 +18,6 @@ case class EstimateItem(
 object EstimateItem extends SkinnyCRUDMapper[EstimateItem] {
   override lazy val tableName = "estimate_item"
   override lazy val defaultAlias = createAlias("ei")
-  override def useExternalIdGenerator = true
-  override def generateId:Long = DB localTx {
-    implicit session =>
-      //シーケンステーブルからIDを採番して、IDを設定する
-      sql"select nextval('estimate_seq') as id".map(_.long("id")).first().apply.get
-  }
 
   /*
    * If you're familiar with ScalikeJDBC/Skinny ORM, using #autoConstruct makes your mapper simpler.
