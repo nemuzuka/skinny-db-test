@@ -40,6 +40,7 @@ object SkinnyAppBuild extends Build {
       "org.postgresql"          %  "postgresql"           % "9.4-1200-jdbc41",
       "org.skinny-framework"    %% "skinny-factory-girl"  % skinnyVersion   % "test",
       "org.skinny-framework"    %% "skinny-test"          % skinnyVersion   % "test",
+      "org.dbunit"              %  "dbunit" % "2.5.1"     % "test",
       "org.eclipse.jetty"       %  "jetty-webapp"         % jettyVersion    % "container",
       "org.eclipse.jetty"       %  "jetty-plus"           % jettyVersion    % "container",
       "javax.servlet"           %  "javax.servlet-api"    % "3.1.0"         % "container;provided;test"

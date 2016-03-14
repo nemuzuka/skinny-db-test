@@ -37,4 +37,26 @@ object Staff extends SkinnyCRUDMapper[Staff] {
     id = rs.get(rn.id),
     staffName = rs.get(rn.staffName)
   )
+
+  /***
+    * 登録.
+    * @param entity 対象Entity
+    * @return 生成ID
+    */
+  def create(entity:Staff)(implicit session:DBSession):Long = {
+    Staff.createWithAttributes(
+      'staffName -> entity.staffName
+    )
+  }
+
+  /***
+    * 更新.
+    * @param entity 対象Entity
+    * @return ID
+    */
+  def update(entity:Staff)(implicit session:DBSession):Long = {
+    Staff.updateById(entity.id).withAttributes(
+      'staffName -> entity.staffName
+    )
+  }
 }

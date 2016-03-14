@@ -1,19 +1,19 @@
-package dao
+package model
 
-import model.Staff
 import org.scalatest._
 import org.scalatest.fixture.FunSpec
-import skinny._
 import scalikejdbc.scalatest._
+import skinny._
+
 /**
-  * StaffDaoに対するcreateに関するテスト.
+  * Staffに対するcreateに関するテスト.
   */
-class StaffDaoCreateSpec extends FunSpec with AutoRollback with Matchers with DBSettings {
+class StaffCreateSpec extends FunSpec with AutoRollback with Matchers with DBSettings {
 
   describe("create") {
     it("登録できることの確認") { implicit session =>
       val entity = Staff(id = -1L, staffName = "ほげほげ")
-      val actualId = StaffDao.create(entity)
+      val actualId = Staff.create(entity)
       actualId should be > 0L
     }
   }
