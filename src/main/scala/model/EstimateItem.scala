@@ -5,8 +5,9 @@ import scalikejdbc._
 import org.joda.time._
 
 case class EstimateItem(
-  id: Int,
+  id: Long,
   estimateId: Long,
+  itemId: Option[Long] = None,
   sortNum: Long,
   itemName: Option[String] = None,
   unitPrice: Option[BigDecimal] = None,
@@ -35,6 +36,7 @@ object EstimateItem extends SkinnyCRUDMapper[EstimateItem] {
   override def extract(rs: WrappedResultSet, rn: ResultName[EstimateItem]): EstimateItem = new EstimateItem(
     id = rs.get(rn.id),
     estimateId = rs.get(rn.estimateId),
+    itemId = rs.get(rn.itemId),
     sortNum = rs.get(rn.sortNum),
     itemName = rs.get(rn.itemName),
     unitPrice = rs.get(rn.unitPrice),

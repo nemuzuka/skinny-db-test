@@ -16,7 +16,9 @@ DbUnitを使用してExcelを元に初期データを登録するパターン
 ### logic.StaffLogic / logic.StaffLogicCreateSpec
 
 modelを呼び出すlogicレイヤーのメソッドの書き方。`(implicit session:DBSession)` がミソ。
-この方式にしないと、AutoRollback を mixinした場合のテストクラスでrollbackされない(他に良いやり方無いかな)
+
+この方式にしないと、AutoRollback を mixinした場合のテストクラスでrollbackされない(他に良いやり方無いかな)。
+
 ちなみに、controllerからlogicレイヤーを呼び出す時は、controller.RootController を参照
 
 # 注意点
