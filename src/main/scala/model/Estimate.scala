@@ -11,12 +11,17 @@ case class Estimate(
   subtotal: Option[BigDecimal] = None,
   tax: Option[BigDecimal] = None,
   total: Option[BigDecimal] = None,
-  staffId: Option[Long] = None
+  estimateDate: Option[LocalDate] = None,
+  createStaffId: Option[Long] = None,
+  createAt: Option[DateTime] = None,
+  lastUpdateStaffId: Option[Long] = None,
+  lastUpdateAt: Option[DateTime] = None
 )
 
 object Estimate extends SkinnyCRUDMapper[Estimate] {
   override lazy val tableName = "estimate"
   override lazy val defaultAlias = createAlias("e")
+
   override def useExternalIdGenerator = true
   override def generateId:Long = DB localTx {
     implicit session =>
@@ -44,6 +49,10 @@ object Estimate extends SkinnyCRUDMapper[Estimate] {
     subtotal = rs.get(rn.subtotal),
     tax = rs.get(rn.tax),
     total = rs.get(rn.total),
-    staffId = rs.get(rn.staffId)
+    estimateDate = rs.get(rn.estimateDate),
+    createStaffId = rs.get(rn.createStaffId),
+    createAt = rs.get(rn.createAt),
+    lastUpdateStaffId = rs.get(rn.lastUpdateStaffId),
+    lastUpdateAt = rs.get(rn.lastUpdateAt)
   )
 }

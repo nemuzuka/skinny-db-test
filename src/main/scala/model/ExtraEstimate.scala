@@ -27,12 +27,18 @@ object ExtraEstimate extends SkinnyCRUDMapper[ExtraEstimate] {
     * @param totalFrom 合計From
     * @param totalTo 合計To
     * @param itemIds 商品IDSeq
+    * @param estimateDateFrom 見積日付From
+    * @param estimateDateTo 見積日付To
+    * @param itemName 商品名(前方一致)
     */
   case class Condition(
     staffIds:Option[Seq[Long]],
     totalFrom:Option[BigDecimal],
     totalTo:Option[BigDecimal],
-    itemIds:Option[Seq[Long]]
+    itemIds:Option[Seq[Long]],
+    estimateDateFrom:Option[LocalDate],
+    estimateDateTo:Option[LocalDate],
+    itemName:Option[String]
   )
 
   /***

@@ -17,7 +17,7 @@ class StaffSpec extends FunSpec with AutoRollback with Matchers with DBSettings 
     * @param session DBSession
     */
   override def fixture(implicit session: DBSession) {
-    importExcelData(session, Seq("model/StaffSpec.xlsx"))
+    importExcelData(session, Seq("model/StaffFixture.xlsx"))
   }
 
   describe("update") {

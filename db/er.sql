@@ -42,8 +42,16 @@ CREATE TABLE estimate
 	tax numeric(19,6),
 	-- 合計
 	total numeric(19,6),
-	-- 社員ID
-	staff_id bigint,
+	-- 見積日
+	estimate_date date,
+	-- 作成社員ID
+	create_staff_id bigint,
+	-- 作成日時
+	create_at timestamp,
+	-- 最終更新社員ID
+	last_update_staff_id bigint,
+	-- 最終更新日時
+	last_update_at timestamp,
 	PRIMARY KEY (id)
 ) WITHOUT OIDS;
 
@@ -52,7 +60,7 @@ CREATE TABLE estimate
 CREATE TABLE estimate_item
 (
 	-- id(自動採番)
-	id serial NOT NULL,
+	id bigserial NOT NULL,
 	-- 見積ID
 	estimate_id bigint NOT NULL,
 	-- 商品ID
@@ -117,7 +125,15 @@ ALTER TABLE estimate_item
 
 
 ALTER TABLE estimate
-	ADD FOREIGN KEY (staff_id)
+	ADD FOREIGN KEY (create_staff_id)
+	REFERENCES staff (id)
+	ON UPDATE RESTRICT
+	ON DELETE SET NULL
+;
+
+
+ALTER TABLE estimate
+	ADD FOREIGN KEY (last_update_staff_id)
 	REFERENCES staff (id)
 	ON UPDATE RESTRICT
 	ON DELETE SET NULL
@@ -134,7 +150,11 @@ COMMENT ON COLUMN estimate.tax_rate IS '消費税率(%)';
 COMMENT ON COLUMN estimate.subtotal IS '小計';
 COMMENT ON COLUMN estimate.tax IS '消費税額';
 COMMENT ON COLUMN estimate.total IS '合計';
-COMMENT ON COLUMN estimate.staff_id IS '社員ID';
+COMMENT ON COLUMN estimate.estimate_date IS '見積日';
+COMMENT ON COLUMN estimate.create_staff_id IS '作成社員ID';
+COMMENT ON COLUMN estimate.create_at IS '作成日時';
+COMMENT ON COLUMN estimate.last_update_staff_id IS '最終更新社員ID';
+COMMENT ON COLUMN estimate.last_update_at IS '最終更新日時';
 COMMENT ON TABLE estimate_item IS '見積ー商品';
 COMMENT ON COLUMN estimate_item.id IS 'id(自動採番)';
 COMMENT ON COLUMN estimate_item.estimate_id IS '見積ID';
