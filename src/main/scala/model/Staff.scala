@@ -52,4 +52,20 @@ object Staff extends SkinnyCRUDMapper[Staff] {
       'staffName -> entity.staffName
     )
   }
+
+  /**
+    * LIKE検索の検証用に使用します
+    * @param staffName 検索文字列(前方一致)
+    */
+  def findByStaffName(staffName:String)(implicit session:DBSession) = {
+    val s = Staff.syntax("s")
+    withSQL {
+      select(s.result.*)
+        .from(Staff as s)
+        .where.like(s.staffName, LikeConditionEscapeUtil.beginsWith(staffName))
+        .orderBy(s.id)
+    }.map { rs =>
+      Staff.extract(rs, s.resultName)
+    }.list.apply
+  }
 }
