@@ -2,7 +2,6 @@ package model
 
 import _root_.test.DBTestTrait
 import org.scalatest._
-import org.scalatest.fixture.FunSpec
 import scalikejdbc.DBSession
 import scalikejdbc.scalatest._
 import skinny._
@@ -10,7 +9,7 @@ import skinny._
 /***
   * Staffに関するテスト.
   */
-class StaffSpec extends FunSpec with AutoRollback with Matchers with DBSettings with DBTestTrait {
+class StaffSpec extends fixture.FunSpec with AutoRollback with Matchers with DBSettings with DBTestTrait {
 
   /***
     * テスト用データ登録.

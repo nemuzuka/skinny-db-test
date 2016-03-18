@@ -8,30 +8,14 @@ DROP TABLE IF EXISTS staff;
 
 
 
-/* Drop Sequences */
-
-DROP SEQUENCE IF EXISTS estimate_seq;
-DROP SEQUENCE IF EXISTS item_seq;
-DROP SEQUENCE IF EXISTS staff_seq;
-
-
-
-
-/* Create Sequences */
-
-CREATE SEQUENCE estimate_seq;
-CREATE SEQUENCE item_seq;
-CREATE SEQUENCE staff_seq;
-
-
 
 /* Create Tables */
 
 -- 見積
 CREATE TABLE estimate
 (
-	-- id
-	id bigint NOT NULL,
+	-- id(自動採番)
+	id bigserial NOT NULL,
 	-- 見積タイトル
 	estimate_title varchar(256),
 	-- 消費税率(%)
@@ -84,8 +68,8 @@ CREATE TABLE estimate_item
 -- 商品マスタ
 CREATE TABLE item
 (
-	-- id
-	id bigint NOT NULL,
+	-- id(自動採番)
+	id bigserial NOT NULL,
 	-- 商品名
 	item_name varchar(256),
 	-- 単価
@@ -97,8 +81,8 @@ CREATE TABLE item
 -- 社員
 CREATE TABLE staff
 (
-	-- id
-	id bigint NOT NULL,
+	-- id(自動採番)
+	id bigserial NOT NULL,
 	-- 社員名
 	staff_name varchar(256) NOT NULL,
 	PRIMARY KEY (id)
@@ -144,7 +128,7 @@ ALTER TABLE estimate
 /* Comments */
 
 COMMENT ON TABLE estimate IS '見積';
-COMMENT ON COLUMN estimate.id IS 'id';
+COMMENT ON COLUMN estimate.id IS 'id(自動採番)';
 COMMENT ON COLUMN estimate.estimate_title IS '見積タイトル';
 COMMENT ON COLUMN estimate.tax_rate IS '消費税率(%)';
 COMMENT ON COLUMN estimate.subtotal IS '小計';
@@ -166,11 +150,11 @@ COMMENT ON COLUMN estimate_item.quantity IS '数量';
 COMMENT ON COLUMN estimate_item.total IS '合計';
 COMMENT ON COLUMN estimate_item.memo IS 'メモ';
 COMMENT ON TABLE item IS '商品マスタ';
-COMMENT ON COLUMN item.id IS 'id';
+COMMENT ON COLUMN item.id IS 'id(自動採番)';
 COMMENT ON COLUMN item.item_name IS '商品名';
 COMMENT ON COLUMN item.unit_price IS '単価';
 COMMENT ON TABLE staff IS '社員';
-COMMENT ON COLUMN staff.id IS 'id';
+COMMENT ON COLUMN staff.id IS 'id(自動採番)';
 COMMENT ON COLUMN staff.staff_name IS '社員名';
 
 

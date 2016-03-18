@@ -13,13 +13,6 @@ object Staff extends SkinnyCRUDMapper[Staff] {
   override lazy val tableName = "staff"
   override lazy val defaultAlias = createAlias("s")
 
-  override def useExternalIdGenerator = true
-  override def generateId:Long = DB localTx {
-    implicit session =>
-      //シーケンステーブルからIDを採番して、IDを設定する
-      sql"select nextval('staff_seq') as id".map(_.long("id")).first().apply.get
-  }
-
   /*
    * If you're familiar with ScalikeJDBC/Skinny ORM, using #autoConstruct makes your mapper simpler.
    * (e.g.)

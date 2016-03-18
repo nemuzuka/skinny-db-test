@@ -1,18 +1,18 @@
 package model
 
 import org.scalatest._
-import org.scalatest.fixture.FunSpec
 import scalikejdbc.scalatest._
 import skinny._
 
 /**
   * Staffに対するcreateに関するテスト.
+  * シーケンスでidを採番する為、事前データを入れると一意制約エラーになる可能性があるので、
+  * 事前データは入れません
   */
-class StaffCreateSpec extends FunSpec with AutoRollback with Matchers with DBSettings {
+class StaffCreateSpec extends fixture.FunSpec with AutoRollback with Matchers with DBSettings {
 
   describe("create") {
     it("登録できることの確認") { implicit session =>
-
       Staff.findAll().size should be (0)
 
       val entity = Staff(id = -1L, staffName = "ほげほげ")

@@ -4,7 +4,6 @@ import _root_.test.DBTestTrait
 import model.ExtraEstimate.Condition
 import org.joda.time.format.DateTimeFormat
 import org.scalatest._
-import org.scalatest.fixture.FunSpec
 import scalikejdbc.DBSession
 import scalikejdbc.scalatest._
 import skinny._
@@ -12,7 +11,7 @@ import skinny._
 /***
   * 見積検索に関するテスト.
   */
-class ExtraEstimateSpec extends FunSpec with AutoRollback with Matchers with DBSettings with DBTestTrait {
+class ExtraEstimateSpec extends fixture.FunSpec with AutoRollback with Matchers with DBSettings with DBTestTrait {
 
   /***
     * テスト用データ登録.
