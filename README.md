@@ -3,7 +3,7 @@ SkinnyFrameworkを使用したDBテストのサンプル
 
 # 設定
 
-1. PostgreSQLをインストール
+1. PostgreSQL(9.4)をインストール
 2. 接続情報を `src/main/resources/application.conf` に記述(testの箇所)
 3. testに指定した接続先のdatabaseに対して、 `db/er.sql` を実行
 4. `./skinny test` で実行するとDBを使用したテストが実行できます
