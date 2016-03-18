@@ -45,9 +45,45 @@ object ExtraEstimate extends SkinnyCRUDMapper[ExtraEstimate] {
     * 検索条件に合致する見積一覧取得.
     * @param condition 検索条件
     */
-  def findByCondition(condition:Condition) = {
-
+  def findByCondition(condition:Condition)(implicit session:DBSession):List[Estimate] = {
+    val e = Estimate.syntax("e")
+    val ei = EstimateItem.syntax("ei")
+    withSQL {
+      select(e.result.*)
+        .from(Estimate as e)
+        .where(sqls.toAndConditionOpt(
+          condition.staffIds.map(staffIds => sqls.in(e.lastUpdateStaffId, staffIds)),
+          condition.estimateDateFrom.map(estimateDateFrom => sqls.ge(e.estimateDate, estimateDateFrom)),
+          condition.estimateDateTo.map(estimateDateTo => sqls.le(e.estimateDate, estimateDateTo)),
+          condition.totalFrom.map(totalFrom => sqls.ge(e.total, totalFrom)),
+          condition.totalTo.map(totalTo => sqls.le(e.total, totalTo)),
+          condition.itemIds.map(itemIds => sqls.exists(
+            sqls"""
+                  select
+                    ${ei.id}
+                  from
+                    ${EstimateItem as ei}
+                  where
+                    ${ei.estimateId} = ${e.id} and
+                    ${ei.itemId} in (${itemIds})
+              """
+          )),
+          condition.itemName.map(itemName => sqls.exists(
+            sqls"""
+                  select
+                    ${ei.id}
+                  from
+                    ${EstimateItem as ei}
+                  where
+                    ${ei.estimateId} = ${e.id} and
+                    ${ei.itemName} like ${LikeConditionEscapeUtil.beginsWith(itemName)}
+              """
+          ))
+        ))
+        .orderBy(e.estimateDate)
+    }.map { rs =>
+      Estimate.extract(rs, e.resultName)
+    }.list.apply
   }
-
 }
 
