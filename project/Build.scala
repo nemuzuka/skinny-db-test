@@ -37,7 +37,7 @@ object SkinnyAppBuild extends Build {
       "org.skinny-framework"    %% "skinny-assets"        % skinnyVersion,
       "org.skinny-framework"    %% "skinny-task"          % skinnyVersion,
       "org.skinny-framework"    %  "skinny-logback"       % "1.0.7",
-      "org.postgresql"          %  "postgresql"           % "9.4-1200-jdbc41",
+      "org.postgresql"          %  "postgresql"           % "9.4-1206-jdbc42",
       "org.skinny-framework"    %% "skinny-factory-girl"  % skinnyVersion   % "test",
       "org.skinny-framework"    %% "skinny-test"          % skinnyVersion   % "test",
       "org.dbunit"              %  "dbunit" % "2.5.1"     % "test",
