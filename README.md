@@ -57,3 +57,47 @@ n個以上のmodelを呼び出すlogicレイヤーのメソッドの書き方。
 1. 何回やっても同じ結果になるように、複数件取得できる検索処理の場合、order by は必須
 2. 外部キーを張っている場合、データの登録順(Excelのシートの記述順)に注意すること
     * 参照テーブルを先に登録する
+
+
+# Google Guiceを使ったDI
+
+LogicやDaoをobjectにしていたのですが、テストしやすさを考えるとそれでいいのかな、と思わなくもありません。
+ScalaでもDI使いたいですよね？
+
+### util.BindModule
+DIの設定を記述します。
+Model部分とLogicで記述方法が違います。
+Modelはobjectで定義しないといけないので、traitの実装はtoInstanceで定義しています
+Logicはtraitと継承クラスの関係とし、Singletonにしています
+
+### model.StaffDi model.StaffDiDao
+Model部分をDIできるように、traitでメソッド定義するようにしています
+
+### logic.StaffDiLogic logic.StaffDiLogicImpl
+Logic部分です。ここで、DaoをInjectします。
+実装classには〜Implをつけるようにルール化
+
+### controller.RootController2
+DIを使用したパターンでLogicを呼び出すケースです。
+injectMembersでInjectしても良いのですが、使いもしないメンバ変数にbindされても意味が無いので必要な奴だけ呼び出すようにしています。
+BindModule.injector.getInstance
+
+## テストクラス
+
+### model.StaffDiSpec
+DIを使用してDaoをInjectし実際のDBにアクセスするケースです
+
+### logic.StaffDiLogicImplSpec
+DIを使用してLogicをInjectし、依存するDaoのtraitは実際のobjectを呼びます
+DBアクセスして取得することを確認しました。
+
+### logic.StaffDiLogicImplMockSpec
+DIを使用してLogicをInjectするのですが、依存するDaoはMockのパターンです
+MockフレームワークはMockitoを使用しました。
+処理を呼び出す前にMockに差し替える必要があるのですが、カリー化したDBSessionがMock的にうけとれず、そこは実際のDBを渡すようになっています
+実際はDBのデータもExcelで用意する想定で、Mockにするのは、外部サービス等になるので、ひとまずは良しとしました。
+
+`Guice.createInjector(Modules.`override`(new BindModule()).`with`(getTestModule(m))).injectMembers(this)`
+
+の辺りがミソで、テスト用のDI設定を上書きするようにしています
+

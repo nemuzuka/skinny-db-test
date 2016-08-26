@@ -88,6 +88,15 @@ CREATE TABLE staff
 	PRIMARY KEY (id)
 ) WITHOUT OIDS;
 
+-- 社員(DIテスト用)
+CREATE TABLE staff_di
+(
+	-- id(自動採番)
+	id bigserial NOT NULL,
+	-- 社員名
+	staff_name varchar(256) NOT NULL,
+	PRIMARY KEY (id)
+) WITHOUT OIDS;
 
 
 /* Create Foreign Keys */
@@ -156,6 +165,9 @@ COMMENT ON COLUMN item.unit_price IS '単価';
 COMMENT ON TABLE staff IS '社員';
 COMMENT ON COLUMN staff.id IS 'id(自動採番)';
 COMMENT ON COLUMN staff.staff_name IS '社員名';
+COMMENT ON TABLE staff_di IS '社員(DI用)';
+COMMENT ON COLUMN staff_di.id IS 'id(自動採番)';
+COMMENT ON COLUMN staff_di.staff_name IS '社員名';
 
 
 
